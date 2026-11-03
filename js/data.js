@@ -56,3 +56,17 @@ export const voituresInitiales = [
     "statut": "Disponible"
   }
 ];
+
+bouttonsuprimer.addeventlisteninner("click",(event)=>{
+
+let confirmation = confirm("tu essure pour la supprission");
+if(!confirmation){
+  return;
+}
+
+
+const voitures = voitures.filtrer((v), v.id !==voitures.id)
+
+})
+
+
