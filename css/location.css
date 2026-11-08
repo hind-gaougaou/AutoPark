@@ -1,6 +1,6 @@
 /* ===== Page "Ma location" ===== */
 
-/* ---- Étapes ---- */
+/* ---- Etapes ---- */
 .etapes {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -143,7 +143,7 @@
   outline-offset: 2px;
 }
 
-/* ---- Période ---- */
+/* ---- Periode ---- */
 .periode {
   padding-top: 20px;
   border-top: 1px solid #dbe2eb;
@@ -206,7 +206,7 @@
   background: #1e41a6;
 }
 
-/* ---- Résumé ---- */
+/* ---- Resume ---- */
 .resume {
   padding: 20px;
   font-size: 11px;

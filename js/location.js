@@ -1,52 +1,58 @@
 import { voituresInitiales } from "./data.js";
 
-// On garde seulement les voitures disponibles
-const voitures = voituresInitiales.filter((v) => v.statut === "Disponible");
+//  les voitures disponibles
+const voitures = voituresInitiales.filter(function (v) {
+  return v.statut === "Disponible";
+});
 
 const mois = ["janvier", "février", "mars", "avril", "mai", "juin",
   "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
-  const joursMax = 3;
 
-// Les éléments HTML
+// Dure maximale de location (en jours)
+const joursMax = 3;
+
+
 const formulaire = document.querySelector("#formulaire-location");
 const liste = document.querySelector("#liste-voitures");
 const periode = document.querySelector(".periode");
 const boutons = document.querySelector(".boutons");
 const resume = document.querySelector(".resume");
 
-// Petite fonction pour créer un élément plus vite
-function creer(balise, classe, texte) {
-  const element = document.createElement(balise);
-  if (classe) {
-    element.className = classe;
-  }
-  if (texte !== undefined) {
-    element.textContent = texte;
-  }
-  return element;
-}
 
-
-// ===== 1. LES CARTES DES VOITURES =====
+// =====  LES CARTES DES VOITURES =====
 function creerCartes() {
   liste.innerHTML = "";
 
-  voitures.forEach((voiture, index) => {
-    const carte = creer("label", "voiture");
+  voitures.forEach(function (voiture, index) {
+    const carte = document.createElement("label");
+    carte.className = "voiture";
 
-    const radio = creer("input");
+    const radio = document.createElement("input");
     radio.type = "radio";
     radio.name = "voiture";
     radio.value = voiture.id;
     if (index === 0) {
-      radio.defaultChecked = true; // la première est choisie au départ
+      radio.defaultChecked = true; 
     }
 
-    const type = creer("span", "type", voiture.categorie);
-    const nom = creer("span", "nom", voiture.marque + " " + voiture.modele);
-    const statut = creer("span", "statut", voiture.statut);
-    const prix = creer("span", "prix", voiture.prixJour + " MAD / jour");
-    const rond = creer("span", "rond");
+    const type = document.createElement("span");
+    type.className = "type";
+    type.textContent = voiture.categorie;
+
+    const nom = document.createElement("span");
+    nom.className = "nom";
+    nom.textContent = voiture.marque + " " + voiture.modele;
+
+    const statut = document.createElement("span");
+    statut.className = "statut";
+    statut.textContent = voiture.statut;
+
+    const prix = document.createElement("span");
+    prix.className = "prix";
+    prix.textContent = voiture.prixJour + " MAD / jour";
+
+    const rond = document.createElement("span");
+    rond.className = "rond";
 
     carte.append(radio, type, nom, statut, prix, rond);
     liste.appendChild(carte);
@@ -54,70 +60,84 @@ function creerCartes() {
 }
 
 
-// ===== 2. LA PÉRIODE =====
-function creerChamp(texte, id, valeur) {
-  const champ = creer("div", "champ");
-
-  const label = creer("label", "", texte);
-  label.htmlFor = id;
-
-  const input = creer("input");
-  input.id = id;
-  input.type = "date";
-  input.defaultValue = valeur;
-  input.required = true;
-
-  champ.append(label, input);
-  return champ;
-}
-
+// ===== LA PeRIODE =====
 function creerPeriode() {
-  const titre = creer("h3", "", "Votre période de location");
+  const titre = document.createElement("h3");
+  titre.textContent = "Votre période de location";
 
-  const dates = creer("div", "dates");
-  dates.append(
-    creerChamp("Date de début *", "debut", "2026-11-10"),
-    creerChamp("Date de fin *", "fin", "2026-11-12")
-  );
+  const dates = document.createElement("div");
+  dates.className = "dates";
 
-  const info = creer("p", "info");
+  // date de début
+  const champDebut = document.createElement("div");
+  champDebut.className = "champ";
 
+  const labelDebut = document.createElement("label");
+  labelDebut.textContent = "Date de début *";
+  labelDebut.htmlFor = "debut";
+
+  const inputDebut = document.createElement("input");
+  inputDebut.id = "debut";
+  inputDebut.type = "date";
+  inputDebut.defaultValue = "2026-11-10";
+  inputDebut.required = true;
+
+  champDebut.append(labelDebut, inputDebut);
+
+  // date de fin
+  const champFin = document.createElement("div");
+  champFin.className = "champ";
+
+  const labelFin = document.createElement("label");
+  labelFin.textContent = "Date de fin *";
+  labelFin.htmlFor = "fin";
+
+  const inputFin = document.createElement("input");
+  inputFin.id = "fin";
+  inputFin.type = "date";
+  inputFin.defaultValue = "2026-11-12";
+  inputFin.required = true;
+
+  champFin.append(labelFin, inputFin);
+
+  // message de duree
+  const info = document.createElement("p");
+  info.className = "info";
+
+  dates.append(champDebut, champFin);
   periode.append(titre, dates, info);
 }
 
 
-// ===== 3. LES BOUTONS =====
+// =====  LES BOUTONS =====
 function creerBoutons() {
-  const recommencer = creer("button", "btn blanc", "Recommencer");
+  const recommencer = document.createElement("button");
   recommencer.type = "reset";
+  recommencer.className = "btn blanc";
+  recommencer.textContent = "Recommencer";
 
-  const suivant = creer("button", "btn bleu", "Suivant");
+  const suivant = document.createElement("button");
   suivant.type = "submit";
+  suivant.className = "btn bleu";
+  suivant.textContent = "Suivant";
 
   boutons.append(recommencer, suivant);
 }
 
 
-// ===== 4. FONCTIONS UTILES =====
+// =====  FONCTIONS UTILES =====
 function voitureChoisie() {
   if (!formulaire.voiture) {
     return null; // aucune voiture disponible
   }
+
   const id = Number(formulaire.voiture.value);
-  return voitures.find((v) => v.id === id);
-}
-function limiterDateFin() {
-  const debut = document.querySelector("#debut");
-  const fin = document.querySelector("#fin");
 
-  fin.min = debut.value;   // fin ma tkounch qbl debut
-
-  if (debut.value !== "") {
-    const max = new Date(debut.value);
-    max.setUTCDate(max.getUTCDate() + joursMax - 1);
-    fin.max = max.toISOString().split("T")[0];   // ex : "2026-11-12"
-  }
+  return voitures.find(function (v) {
+    return v.id === id;
+  });
 }
+
 function calculerJours() {
   const debut = document.querySelector("#debut").value;
   const fin = document.querySelector("#fin").value;
@@ -127,26 +147,44 @@ function calculerJours() {
   }
 
   const diff = (new Date(fin) - new Date(debut)) / 86400000;
+
   if (diff < 0) {
     return 0;
   }
   return diff + 1; // +1 car les dates sont incluses
 }
 
+// La date de fin ne peut pas depasser 3 jours après le début
+function limiterDateFin() {
+  const debut = document.querySelector("#debut");
+  const fin = document.querySelector("#fin");
+
+  fin.min = debut.value;
+
+  if (debut.value !== "") {
+    const max = new Date(debut.value);
+    max.setUTCDate(max.getUTCDate() + joursMax - 1);
+    fin.max = max.toISOString().split("T")[0]; // ex : "2026-11-12"
+  }
+}
+
 function formaterDates(d1, d2) {
   const a = new Date(d1);
   const b = new Date(d2);
 
-  const finTexte = b.getUTCDate() + " " + mois[b.getUTCMonth()] + " " + b.getUTCFullYear();
+  const finTexte =
+    b.getUTCDate() + " " + mois[b.getUTCMonth()] + " " + b.getUTCFullYear();
 
-  if (a.getUTCMonth() === b.getUTCMonth() && a.getUTCFullYear() === b.getUTCFullYear()) {
+  if (
+    a.getUTCMonth() === b.getUTCMonth() &&
+    a.getUTCFullYear() === b.getUTCFullYear()
+  ) {
     return a.getUTCDate() + " → " + finTexte;
   }
   return a.getUTCDate() + " " + mois[a.getUTCMonth()] + " → " + finTexte;
 }
 
-
-  function afficherDuree(jours) {
+function afficherDuree(jours) {
   const info = document.querySelector(".periode .info");
   const debut = document.querySelector("#debut").value;
   const fin = document.querySelector("#fin").value;
@@ -158,85 +196,157 @@ function formaterDates(d1, d2) {
   } else if (jours > joursMax) {
     info.textContent = "La durée maximale est de " + joursMax + " jours.";
   } else {
-    const s = jours > 1 ? "s" : "";
+    let s = "";
+    if (jours > 1) {
+      s = "s";
+    }
     info.textContent =
       "Durée : " + jours + " jour" + s + ". Les dates de début et de fin sont incluses.";
   }
 }
 
 
-
-// ===== 5. LE RÉSUMÉ =====
+// =====  LE ReSUMe=====
 function creerResume() {
   resume.innerHTML = "";
 
   const voiture = voitureChoisie();
+
   if (!voiture) {
-    resume.append(creer("p", "gris", "Aucune voiture disponible."));
+    const vide = document.createElement("p");
+    vide.className = "gris";
+    vide.textContent = "Aucune voiture disponible.";
+    resume.appendChild(vide);
     return;
   }
 
   const jours = calculerJours();
   const valide = jours > 0 && jours <= joursMax;
   const total = jours * voiture.prixJour;
-  const s = jours > 1 ? "s" : "";
+
+  let s = "";
+  if (jours > 1) {
+    s = "s";
+  }
 
   const debut = document.querySelector("#debut").value;
   const fin = document.querySelector("#fin").value;
 
-  // ligne 1 : véhicule
-  const ligne1 = creer("div", "ligne");
-  ligne1.append(
-    creer("span", "", valide ? "Véhicule · " + jours + " × " + voiture.prixJour + " MAD" : "Véhicule"),
-    creer("b", "", valide ? total + " MAD" : "—")
-  );
+  const titre = document.createElement("p");
+  titre.className = "eyebrow";
+  titre.textContent = "VOTRE LOCATION";
 
-  // ligne 2 : récupération
-  const ligne2 = creer("div", "ligne");
-  ligne2.append(creer("span", "", "Récupération"), creer("b", "", "Gratuite"));
+  const nomVoiture = document.createElement("h2");
+  nomVoiture.textContent = voiture.marque + " " + voiture.modele;
+
+  const sousTitre = document.createElement("p");
+  sousTitre.className = "sous-titre";
+  sousTitre.textContent = voiture.categorie + " · " + voiture.prixJour + " MAD / jour";
+
+  const trait1 = document.createElement("hr");
+
+  const date = document.createElement("p");
+  date.className = "date";
+  if (valide) {
+    date.textContent = formaterDates(debut, fin);
+  } else {
+    date.textContent = "Dates à choisir";
+  }
+
+  const nbJours = document.createElement("p");
+  nbJours.className = "gris";
+  if (valide) {
+    nbJours.textContent = jours + " jour" + s + " · dates incluses";
+  }
+
+  // ligne 1 : véhicule
+  const ligne1 = document.createElement("div");
+  ligne1.className = "ligne";
+
+  const vehicule = document.createElement("span");
+  vehicule.textContent = "Véhicule";
+
+  const prixVehicule = document.createElement("b");
+  prixVehicule.textContent = "—";
+
+  if (valide) {
+    vehicule.textContent = "Véhicule · " + jours + " × " + voiture.prixJour + " MAD";
+    prixVehicule.textContent = total + " MAD";
+  }
+  ligne1.append(vehicule, prixVehicule);
+
+  // ligne 2 : recuperation
+  const ligne2 = document.createElement("div");
+  ligne2.className = "ligne";
+
+  const recuperation = document.createElement("span");
+  recuperation.textContent = "Récupération";
+
+  const gratuite = document.createElement("b");
+  gratuite.textContent = "Gratuite";
+
+  ligne2.append(recuperation, gratuite);
+
+  const trait2 = document.createElement("hr");
 
   // total
-  const totalbox = creer("div", "total");
-  totalbox.append(
-    creer("span", "", "Total estimé"),
-    creer("strong", "", valide ? total + " MAD" : "—")
-  );
+  const boiteTotal = document.createElement("div");
+  boiteTotal.className = "total";
+
+  const texteTotal = document.createElement("span");
+  texteTotal.textContent = "Total estimé";
+
+  const prixTotal = document.createElement("strong");
+  prixTotal.textContent = "—";
+  if (valide) {
+    prixTotal.textContent = total + " MAD";
+  }
+
+  boiteTotal.append(texteTotal, prixTotal);
+
+  // notes
+  const note1 = document.createElement("p");
+  note1.className = "gris";
+  note1.textContent = "Frais de récupération facturés une seule fois.";
+
+  const note2 = document.createElement("p");
+  note2.className = "info gris-fond";
+  note2.textContent = "Une demande, sans paiement en ligne.";
 
   resume.append(
-    creer("p", "eyebrow", "VOTRE LOCATION"),
-    creer("h2", "", voiture.marque + " " + voiture.modele),
-    creer("p", "sous-titre", voiture.categorie + " · " + voiture.prixJour + " MAD / jour"),
-    creer("hr"),
-    creer("p", "date", valide ? formaterDates(debut, fin) : "Dates à choisir"),
-    creer("p", "gris", valide ? jours + " jour" + s + " · dates incluses" : ""),
+    titre,
+    nomVoiture,
+    sousTitre,
+    trait1,
+    date,
+    nbJours,
     ligne1,
     ligne2,
-    creer("hr"),
-    totalbox,
-    creer("p", "gris", "Frais de récupération facturés une seule fois."),
-    creer("p", "info gris-fond", "Une demande, sans paiement en ligne.")
+    trait2,
+    boiteTotal,
+    note1,
+    note2
   );
 }
 
 
-// ===== 6. METTRE À JOUR =====
-
+// ===== 6. METTRE a JOUR =====
 function mettreAJour() {
   limiterDateFin();
   afficherDuree(calculerJours());
   creerResume();
 }
+
 // Quand on change la voiture ou une date
 formulaire.addEventListener("input", mettreAJour);
 
-// "Recommencer" : on attend que le formulaire se réinitialise
-formulaire.addEventListener("reset", () => {
+// "Recommencer" : on attend que le formulaire se reinitialise
+formulaire.addEventListener("reset", function () {
   setTimeout(mettreAJour, 0);
 });
 
 // "Suivant"
-
-  formulaire.addEventListener("submit", (event) => {
+formulaire.addEventListener("submit", function (event) {
   event.preventDefault();
 
   const jours = calculerJours();
@@ -249,7 +359,6 @@ formulaire.addEventListener("reset", () => {
 });
 
 
-// ===== 7. DÉMARRAGE =====
 creerCartes();
 creerPeriode();
 creerBoutons();
