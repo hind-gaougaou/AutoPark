@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ma location · AutoPark</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/location.css" />
+    <script type="module" src="js/location.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-content">
+        <a class="brand" href="index.html" aria-label="AutoPark — Accueil">
+          <span class="brand-mark" aria-hidden="true">A<span>.</span></span>
+          <span>AutoPark<small>ATLAS AUTO</small></span>
+        </a>
+        <nav aria-label="Navigation principale">
+          <a href="#">Dashboard</a>
+          <a href="voitures.html">Gestion du parc</a>
+          <a href="index.html" aria-current="page">Ma location</a>
+        </nav>
+        <span class="agency-label">Agence de location</span>
+      </div>
+    </header>
+
+    <main id="contenu" class="container main-content">
+      <section class="page-intro">
+        <p class="eyebrow">VOTRE LOCATION SUR MESURE</p>
+        <h1>Composez votre location</h1>
+        <p>Votre voiture, vos dates, vos options. À vous de choisir.</p>
+      </section>
+
+      <div class="etapes">
+        <div class="etape active"><span class="numero">1</span>Véhicule</div>
+        <div class="etape"><span class="numero">2</span>Récupération</div>
+        <div class="etape"><span class="numero">3</span>Options</div>
+        <div class="etape"><span class="numero">4</span>Récapitulatif</div>
+      </div>
+
+      <div class="grille">
+        <section class="boite">
+          <p class="eyebrow">01 / VÉHICULE</p>
+          <h2>Choisissez votre véhicule</h2>
+          <p class="texte">
+            Sélectionnez une voiture disponible et votre période de location.
+          </p>
+
+          <form id="formulaire-location">
+            <div class="voitures" id="liste-voitures"></div>
+            <div class="periode"></div>
+            <div class="boutons"></div>
+          </form>
+        </section>
+
+        <aside class="boite resume"></aside>
+      </div>
+
+      <p class="pied">AutoPark · Atlas Auto — Demande de location</p>
+    </main>
+  </body>
+</html>

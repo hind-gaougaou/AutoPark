@@ -1,0 +1,278 @@
+/* ===== Page "Ma location" ===== */
+
+/* ---- Étapes ---- */
+.etapes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  padding: 16px 14px;
+  margin-bottom: 20px;
+  background: #ffffff;
+  border: 1px solid #dbe2eb;
+  border-radius: 14px;
+}
+.etape {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #627184;
+  font-size: 12px;
+}
+.numero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #eef1f7;
+  font-size: 11px;
+  font-weight: bold;
+}
+.etape.active {
+  color: #2855d7;
+  font-weight: bold;
+}
+.etape.active .numero {
+  background: #2855d7;
+  color: #ffffff;
+}
+
+/* ---- Grille 2 colonnes ---- */
+.grille {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 16px;
+  align-items: start;
+}
+.boite {
+  padding: 26px;
+  background: #ffffff;
+  border: 1px solid #dbe2eb;
+  border-radius: 14px;
+}
+.boite h2 {
+  margin-bottom: 8px;
+  font-size: 22px;
+}
+.boite .eyebrow {
+  margin-bottom: 20px;
+}
+.texte {
+  margin-bottom: 18px;
+  color: #627184;
+  font-size: 12px;
+}
+
+/* ---- Voitures ---- */
+.voitures {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.voiture {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 14px;
+  border: 1px solid #dbe2eb;
+  border-radius: 10px;
+  background: #ffffff;
+  cursor: pointer;
+  font-weight: normal;
+}
+.voiture:hover {
+  border-color: #aebcf0;
+}
+.voiture input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  min-height: 0;
+  padding: 0;
+}
+.voiture:has(input:checked) {
+  padding: 13px;
+  border: 2px solid #2855d7;
+  background: #f7f9ff;
+}
+.type {
+  align-self: flex-start;
+  padding: 6px 10px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  background: #eaf0ff;
+  color: #2c53b1;
+  font-size: 9px;
+  font-weight: bold;
+}
+.nom {
+  color: #18283b;
+  font-size: 13px;
+  font-weight: bold;
+}
+.statut {
+  color: #1d7048;
+  font-size: 10px;
+}
+.prix {
+  margin-top: 6px;
+  color: #2855d7;
+  font-size: 13px;
+  font-weight: bold;
+}
+.rond {
+  position: absolute;
+  top: 16px;
+  right: 14px;
+  width: 14px;
+  height: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 50%;
+  background: #ffffff;
+}
+.voiture:has(input:checked) .rond {
+  border: 4px solid #2855d7;
+  box-shadow: 0 0 0 1px #2855d7;
+}
+.voiture:has(input:focus-visible) {
+  outline: 3px solid #2855d7;
+  outline-offset: 2px;
+}
+
+/* ---- Période ---- */
+.periode {
+  padding-top: 20px;
+  border-top: 1px solid #dbe2eb;
+}
+.periode h3 {
+  margin-bottom: 18px;
+  font-size: 14px;
+}
+.dates {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.champ {
+  display: flex;
+  flex-direction: column;
+}
+.info {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 6px;
+  background: #eef2ff;
+  color: #2449b5;
+  font-size: 11px;
+}
+.info.gris-fond {
+  background: #f3f5f9;
+  color: #627184;
+}
+
+/* ---- Boutons ---- */
+.boutons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid #dbe2eb;
+}
+.btn {
+  padding: 12px 20px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.btn.blanc {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #18283b;
+}
+.btn.blanc:hover {
+  background: #f3f6fa;
+}
+.btn.bleu {
+  min-width: 116px;
+  background: #2855d7;
+  color: #ffffff;
+}
+.btn.bleu:hover {
+  background: #1e41a6;
+}
+
+/* ---- Résumé ---- */
+.resume {
+  padding: 20px;
+  font-size: 11px;
+}
+.resume h2 {
+  font-size: 16px;
+}
+.sous-titre {
+  margin-bottom: 14px;
+  color: #627184;
+}
+.resume hr {
+  border: 0;
+  border-top: 1px solid #dbe2eb;
+  margin: 14px 0;
+}
+.date {
+  margin-bottom: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+.gris {
+  margin-bottom: 12px;
+  color: #627184;
+  font-size: 10px;
+}
+.ligne {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  color: #627184;
+}
+.ligne b {
+  color: #18283b;
+}
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  font-weight: bold;
+}
+.total strong {
+  color: #2855d7;
+  font-size: 22px;
+}
+
+/* ---- Pied ---- */
+.pied {
+  margin-top: 16px;
+  color: #627184;
+  font-size: 10px;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .grille {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 650px) {
+  .etapes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .voitures,
+  .dates {
+    grid-template-columns: 1fr;
+  }
+}
